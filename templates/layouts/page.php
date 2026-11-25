@@ -1,0 +1,22 @@
+<?php
+/**
+ * Layout: "page" — title + content in a centred column. Used by inner
+ * pages (currently only the 404 page).
+ *
+ * @var \CarolRyan\Site\Builder $builder
+ * @var \CarolRyan\Site\Site $site
+ * @var \CarolRyan\Site\Page $page
+ */
+?>
+<!DOCTYPE html>
+<html lang="<?= e($site->get('language')) ?>">
+<head>
+<?= $builder->renderTemplate('partials/head', ['page' => $page]) ?>
+</head>
+<body>
+<main class="page">
+<h1 class="page-title"><?= e($page->title) ?></h1>
+<?= $page->content ?>
+</main>
+</body>
+</html>
