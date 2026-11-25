@@ -14,21 +14,23 @@ Deployment is automatic: every push to `main` runs
 
 ## One-time setup
 
-1. Create the repository `carolryanco/carolryan-xyz` and push `main`.
+1. Create the repository `MattRyanCo/carolryan-xyz` (public) and push `main`:
+   ```sh
+   gh repo create MattRyanCo/carolryan-xyz --public --source=. --remote=origin --push
+   ```
 2. **Settings → Pages → Build and deployment → Source: GitHub Actions.**
    Or from a terminal:
    ```sh
-   gh api -X POST repos/carolryanco/carolryan-xyz/pages -f build_type=workflow
+   gh api -X POST repos/MattRyanCo/carolryan-xyz/pages -f build_type=workflow
    ```
 3. Push (or run the workflow from the **Actions** tab).
 
-> **Done 2026-11-23.** Repo: https://github.com/CarolRyanCo/carolryan-xyz.
-> Because the account's user site (`Mattryanco.github.io`) has the custom
-> domain `www.ryno-net.com`, GitHub serves this project page at
-> **https://www.ryno-net.com/carolryan-xyz/**, and
-> `mattryanco.github.io/carolryan-xyz/` redirects there. The workflow reads
-> that URL from `configure-pages`, so nothing in the repo needs to change.
-> Giving this repo its own custom domain (below) moves it to the domain root.
+> **Done 2026-11-25.** Repo: https://github.com/MattRyanCo/carolryan-xyz.
+> Before the custom domain was set, GitHub served the site as a project page
+> under the account's user-site domain,
+> `https://www.ryno-net.com/carolryan-xyz/`. With the custom domain below it
+> is served at the root of **https://carolryan.xyz/**. The workflow reads the
+> URL from `configure-pages` either way, so nothing in the repo has to change.
 
 GitHub Pages on a free account requires the repository to be **public**.
 
@@ -36,9 +38,15 @@ GitHub Pages on a free account requires the repository to be **public**.
 
 Actions tab → **Deploy to GitHub Pages** → **Run workflow**.
 
-## Moving the carolryan.xyz domain here
+## Custom domain: carolryan.xyz
 
-When you're ready to switch the domain from WordPress hosting to this site:
+> **Custom domain set 2026-11-25** (repo Settings → Pages). Status at that
+> time: the domain resolved to Cloudflare proxy addresses, **Enforce HTTPS**
+> was not yet ticked, and https://carolryan.xyz/ answered with Cloudflare
+> error 526 (invalid certificate at the origin). Steps 1–2 are done; check
+> steps 3–5 below.
+
+Steps to move the domain from WordPress hosting to this site:
 
 1. In `config/site.php` set `'cname' => 'carolryan.xyz'` and
    `'site_url' => 'https://carolryan.xyz'`; commit and push.
@@ -51,7 +59,11 @@ When you're ready to switch the domain from WordPress hosting to this site:
    If Cloudflare proxies the records (orange cloud), set SSL mode to *Full*.
    GitHub's own HTTPS certificate is issued most reliably with the records
    set to *DNS only* (grey cloud).
-4. Once DNS resolves, tick **Enforce HTTPS** in the Pages settings.
+4. Once DNS resolves and GitHub shows the certificate as issued, tick
+   **Enforce HTTPS** in the Pages settings.
+5. Re-run the workflow (or push). `configure-pages` reports `http://…` until
+   HTTPS is enforced, so a build made before step 4 has `http://` canonical
+   links and sitemap URLs.
 
 The workflow picks up the new base path (`/`) and URL automatically.
 
@@ -65,4 +77,6 @@ https://docs.github.com/pages/configuring-a-custom-domain-for-your-github-pages-
 | Unstyled pages, broken links on github.io | Base path wrong. Check the "Configure Pages" step output; make sure templates use `$site->url()`/`$site->asset()`. |
 | Workflow fails at "Configure Pages" | Pages isn't enabled or not set to "GitHub Actions" (step 2 above). |
 | Workflow fails at "Lint PHP" | Syntax error in the named file. Run `php build.php` locally. |
-| Custom domain resets after deploy | `cname` not set in `config/site.php` (the build writes `CNAME`). |
+| Custom domain resets after deploy | With Actions deploys GitHub ignores the `CNAME` file; the domain lives in Settings → Pages. Set it there again. (`cname` in `config/site.php` still writes the file, which is harmless.) |
+| Cloudflare error 526 on carolryan.xyz | Cloudflare (SSL *Full (strict)*) can't find a valid certificate at GitHub. Set the records to *DNS only* until GitHub issues its certificate, or set SSL mode to *Full*. |
+| `http://` in canonical links / sitemap | Built before **Enforce HTTPS** was ticked. Tick it and re-run the workflow. |
