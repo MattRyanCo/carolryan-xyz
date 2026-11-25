@@ -10,5 +10,5 @@
 $page->title = 'Page not found';
 $page->inSitemap = false;
 ?>
-<p>Sorry, that page doesn't exist (any more). This site moved from WordPress to a static build, so some old addresses are gone.</p>
-<p><a href="<?= e($site->url()) ?>">← Back to the home page</a></p>
+<p class="text">Sorry, that page doesn't exist (any more). This site moved from WordPress to a static build, so some old addresses are gone.</p>
+<a class="button" href="<?= e($site->url()) ?>">Back to the home page</a>

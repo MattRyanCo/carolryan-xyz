@@ -96,12 +96,14 @@ content files and layouts also get `$page`.
 
 | File | Used by | Contents |
 |------|---------|----------|
-| `layouts/landing.php` | home | `<head>`; the content file supplies the whole body (full-screen hero). |
-| `layouts/page.php` | all other pages (currently 404) | `<head>`, then `<main class="page">` with the page title and content. |
+| `layouts/landing.php` | home | `<head>`; the content file supplies the whole body. |
+| `layouts/page.php` | all other pages (currently 404) | `<head>`, then the photo background and centred column with the page title, content and footer. |
 | `partials/head.php` | both layouts | meta tags, title, canonical, `assets/css/style.css`, favicons. |
+| `partials/footer.php` | home, `page` layout | copyright line (year = build year). |
+| `partials/icons/*.php` | home | inline SVG icons for `home.social`. |
 
-Markup uses plain semantic HTML with a few short class names (`.hero-*` on
-the home page, `.page` / `.page-title` for inner pages). See
+Markup uses plain semantic HTML with a few short, generic class names
+(`.backdrop`, `.column`, `.title`, `.button`, …) shared by every page. See
 [STYLES.md](STYLES.md).
 
 The site ships no JavaScript.

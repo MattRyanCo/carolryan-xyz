@@ -30,15 +30,19 @@ return [
     // Home page ("link tree").
     'home' => [
         'document_title' => 'CarolRyan.xyz – Link Tree',
-        'heading' => 'CarolRyan.xyz',
+        'heading' => 'Carol Ryan',
         'tagline' => 'Renew & Reuse Creative',
         'short_description' => 'New or Gently Used—Now Renewed. To create whatever my mind can imagine. I can sew, glue, cut, color, twist, paint, nail things and so much more.',
-        'links_heading' => 'Links',
+        // Icon links under the tagline. 'icon' names a file in
+        // templates/partials/icons/ (without .php).
+        'social' => [
+            ['label' => 'Instagram', 'url' => 'https://instagram.com/caryan1001', 'icon' => 'instagram'],
+        ],
+        // The white pill buttons, top to bottom.
         // url may be absolute, site-relative ("about/") or "mailto:".
         'links' => [
-            ['label' => 'revivalcreations.com', 'url' => 'https://revivalcreations.com'],
-            ['label' => 'Instagram', 'url' => 'https://instagram.com/caryan1001'],
-            ['label' => 'ilovetophotographflowers.com', 'url' => 'https://ilovetophotographflowers.com'],
+            ['label' => 'RevivalCreations.com', 'url' => 'https://revivalcreations.com'],
+            ['label' => 'ILoveToPhotographFlowers.com', 'url' => 'https://ilovetophotographflowers.com'],
             ['label' => 'Contact', 'url' => 'mailto:contact@carolryan.xyz'],
         ],
     ],

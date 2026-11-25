@@ -1,7 +1,8 @@
 <?php
 /**
- * Layout: "page" — title + content in a centred column. Used by inner
- * pages (currently only the 404 page).
+ * Layout: "page" — title + content in the same photo background and
+ * centred column as the home page. Used by inner pages (currently only
+ * the 404 page).
  *
  * @var \CarolRyan\Site\Builder $builder
  * @var \CarolRyan\Site\Site $site
@@ -14,9 +15,12 @@
 <?= $builder->renderTemplate('partials/head', ['page' => $page]) ?>
 </head>
 <body>
-<main class="page">
-<h1 class="page-title"><?= e($page->title) ?></h1>
+<main class="backdrop">
+<div class="column">
+<h1 class="title"><?= e($page->title) ?></h1>
 <?= $page->content ?>
+<?= $builder->renderTemplate('partials/footer') ?>
+</div>
 </main>
 </body>
 </html>

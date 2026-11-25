@@ -13,8 +13,10 @@ After any change: `php build.php`, then refresh `http://localhost:8000`
 | `base_path` | URL prefix (overridden automatically in CI). Leave `/`. |
 | `cname` | Custom domain, e.g. `'carolryan.xyz'`. `null` = use github.io. |
 | `home.document_title` | Home page `<title>`. |
-| `home.heading`, `home.tagline`, `home.links_heading` | Home page text. |
-| `home.links` | The orange link-tree buttons, top to bottom. |
+| `home.heading`, `home.tagline` | Home page title and the line under it. |
+| `home.short_description` | Home page meta description (not shown on the page). |
+| `home.social` | Icon-only links under the tagline (`icon` = a file in `templates/partials/icons/`). |
+| `home.links` | The white pill buttons, top to bottom. |
 | `icons` | Favicon files inside `assets/`. |
 
 Links (`url`) can be:
